@@ -1,3 +1,3 @@
 argparse
-json
-pandas
+google-generative-ai
+python-dotenv
