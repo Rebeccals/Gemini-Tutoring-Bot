@@ -1,4 +1,3 @@
 argparse
 google-generative-ai
 google-cloud-aiplatform
-python-dotenv
