@@ -1,3 +1,2 @@
 argparse
-json
-pandas
+python-dotenv
