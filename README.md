@@ -45,8 +45,4 @@ To be determined
 		</tr>
 	<tbody>
 </table>
-
-
-
-
 <!-- readme: collaborators -end -->
