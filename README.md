@@ -1,6 +1,13 @@
 # Gemini-Tutoring-Bot
 An AI Tutor that tailors lessons based on the user's learning style and progress
 
+## Features
+To be determined
+
+## Tech Stack
+* Python
+* Google Gemini API
+
 ## Collaborators
 
 <!-- readme: collaborators -start -->
@@ -38,4 +45,8 @@ An AI Tutor that tailors lessons based on the user's learning style and progress
 		</tr>
 	<tbody>
 </table>
+
+
+
+
 <!-- readme: collaborators -end -->
