@@ -1,20 +1,16 @@
 import os
 import random
 import google.generativeai as genai
-from google.cloud import aiplatform
-#from google.generativeai import GenerateText
 from dotenv import load_dotenv
+load_dotenv()
 
-load_dotenv()  # Load environment variables from .env
-# Configure the Gemini API client with the API key
-# Must have a .env file in the root directory with "GEMINI_API_KEY=API_KEY_HERE" inside to work
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.configure(api_key=os.environ["API_KEY"])
 
-import firebase_admin
-from firebase_admin import credentials, firestore
+#import firebase_admin
+#from firebase_admin import credentials, firestore
 
-cred = credentials.Certificate("firebase_key.json")
-firebase_admin.initialize_app(cred)
+#cred = credentials.Certificate("firebase_key.json")
+#firebase_admin.initialize_app(cred)
 
 # Define a dictionary to hold questions by topic
 all_questions = {
@@ -23,10 +19,30 @@ all_questions = {
     "statistics": []
 }
 
+# Create the model
+generation_config = {
+  "temperature": 1,
+  "top_p": 0.95,
+  "top_k": 64,
+  "max_output_tokens": 8192,
+  "response_mime_type": "text/plain",
+}
+
+model = genai.GenerativeModel(
+  model_name="gemini-1.5-flash",
+  generation_config=generation_config,
+)
+
 def generate_question(topic, difficulty="medium"):
     """
-    Generate a college-level math question using Gemini AI for a specified topic and difficulty.
-    Returns a dictionary with 'question', 'answer', 'hint', and 'explanation'.
+    Generates a college-level math question using Gemini AI for a specified topic and difficulty.
+
+    Args:
+        topic: The topic of the question.
+        difficulty: The difficulty level (default: "medium").
+
+    Returns:
+        A dictionary containing the question, answer, hint, and explanation.
     """
     # Define a prompt to get a question, answer, hint, and explanation
     prompt = f"""
@@ -43,47 +59,9 @@ def generate_question(topic, difficulty="medium"):
     Hint: <hint text>
     Explanation: <detailed explanation>
     """
+    response = model.generate_content([prompt])
+    print(response.text)
 
-    try:
-        # Make API call to Gemini AI
-        generation_config = {
-            "temperature": 1,
-            "top_p": 0.95,
-            "top_k": 40,
-            "max_output_tokens": 8192,
-            "response_mime_type": "text/plain",
-}
-        model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
-            generation_config=generation_config,
-        )
-       
-      #  model = GenerateText(api_key=os.getenv("GEMINI_API_KEY"))
-        response = model.generate_txt(prompt=prompt)
-
-        if not response.predictions:
-            print("Empty response from API.")
-            return {}
-
-
-        # Parse the response (assuming text is formatted as expected)
-        question_data = response.text.strip().split("\n")
-        parsed_data = {}
-        for item in question_data:
-            if item.startswith("Question:"):
-                parsed_data["question"] = item[len("Question:"):].strip()
-            elif item.startswith("Answer:"):
-                parsed_data["answer"] = item[len("Answer:"):].strip()
-            elif item.startswith("Hint:"):
-                parsed_data["hint"] = item[len("Hint:"):].strip()
-            elif item.startswith("Explanation:"):
-                parsed_data["explanation"] = item[len("Explanation:"):].strip()
-
-        return parsed_data
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return {}
 
 def populate_topic_questions(topic, difficulty_levels=["easy", "medium", "hard"], num_questions=5):
     """
