@@ -1,2 +1,48 @@
 # Gemini-Tutoring-Bot
 An AI Tutor that tailors lessons based on the user's learning style and progress
+
+## Features
+To be determined
+
+## Tech Stack
+* Python
+* Google Gemini API
+
+## Collaborators
+
+<!-- readme: collaborators -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/Rebeccals">
+                    <img src="https://avatars.githubusercontent.com/u/2145912?v=4" width="100;" alt="Rebeccals"/>
+                    <br />
+                    <sub><b>Rebecca Smith</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/ideniaa">
+                    <img src="https://avatars.githubusercontent.com/u/55167367?v=4" width="100;" alt="ideniaa"/>
+                    <br />
+                    <sub><b>ideniaa</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/BrooklynD23">
+                    <img src="https://avatars.githubusercontent.com/u/91554483?v=4" width="100;" alt="BrooklynD23"/>
+                    <br />
+                    <sub><b>BrooklynD23</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Nathmathan">
+                    <img src="https://avatars.githubusercontent.com/u/160674481?v=4" width="100;" alt="Nathmathan"/>
+                    <br />
+                    <sub><b>Nathan</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
+<!-- readme: collaborators -end -->
