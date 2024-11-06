@@ -2,7 +2,8 @@
 An AI Tutor that tailors lessons based on the user's learning style and progress
 
 ## Features
-To be determined
+* A VARK assessment test to help determine your learning style.
+* A College level Math quiz that caters it's learning style according to the VARK assessment test.
 
 ## Tech Stack
 * Python
