@@ -1,18 +1,3 @@
-"""
-from chatbot import *
-
-# Testing out the Gemini API
-response = chat_session.send_message("What's the most popular apple?",stream=True)
-for chunk in response:
-    print(chunk.text)
-    print("_" * 80)
->>>>>>> fd777f6fb0aa1f6e848dfc8733849fccf4859975
-
-"""
-
-
-
-
 import sqlite3 # Import SQLite for storing user's information
 
 # Class to handle user registration and VARK assessment 
@@ -254,5 +239,4 @@ if __name__ == "__main__":
         
         else:
             print("Invalid choice. Please select 1, 2, or 3.\n")
-
 
