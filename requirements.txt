@@ -1,3 +1,4 @@
 argparse
 google-generativeai
 google-cloud-aiplatform
+firebase-admin
