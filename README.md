@@ -1,5 +1,5 @@
 # Gemini-Tutoring-Bot
-An AI Tutor that tailors lessons based on the user's learning style and progress
+An AI Tutor that tailors it's lessons based upon the user's learning style and progress.
 
 ## Features
 * A VARK assessment test to help determine your learning style.
