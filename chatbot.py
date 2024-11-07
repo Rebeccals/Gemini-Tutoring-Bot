@@ -19,7 +19,50 @@ all_questions = {
     "statistics": []
 }
 
-def generate_question(topic, difficulty="medium"):
+# Create the model
+generation_config = {
+  "temperature": 1,
+  "top_p": 0.95,
+  "top_k": 92,
+  "max_output_tokens": 800,
+  "response_mime_type": "text/plain",
+}
+
+model = genai.GenerativeModel(
+  model_name="gemini-1.5-flash",
+  generation_config=generation_config,
+)
+global chat_session
+def setup():
+    global chat_session
+    chat_session = model.start_chat(
+        history=[
+        { "role": "user",
+        "parts":  '''If my response moving forward is not math-related or does not pertain to college-level mathematics, 
+                    respond by saying ‘This does not fall within college-level math.’
+                    '''
+        },
+        { "role": "model",
+        "parts": '''Okay, I understand. I will only talk about math-related subjects that are suitable for a college level.
+                    \n\nPlease ask away! I'm ready to help. 😊 \n
+                    '''
+        },
+        { "role": "user",
+        "parts": "Please give detailed lessons regarding the math topics I will be giving you."
+        },
+        { "role": "model",
+        "parts": "Sure thing!"
+        }
+        ]
+    )
+
+def generateLesson (chat_session,userInput):
+    response = chat_session.send_message(userInput, stream=True)
+    for chunk in response:
+        print(chunk.text)
+
+
+def generate_question(topic="calculus", difficulty="medium"):
     """
     Generates a college-level math question using Gemini AI for a specified topic and difficulty.
 
@@ -48,21 +91,8 @@ def generate_question(topic, difficulty="medium"):
 
 
     """
-    # Create the model
-    generation_config = {
-      "temperature": 1,
-      "top_p": 0.95,
-      "top_k": 64,
-      "max_output_tokens": 8192,
-      "response_mime_type": "text/plain",
-    }
-
-    model = genai.GenerativeModel(
-      model_name="gemini-1.5-flash",
-      generation_config=generation_config,
-)
     response = model.generate_content([prompt])
-   # print(response.text)
+    # print(response.text)
     question_data = {}
 
     try:
@@ -125,3 +155,13 @@ def get_hint(question_data):
 def get_explanation(question_data):
     """Return an explanation for the question if available."""
     return question_data.get("explanation", "No explanation available.")
+
+# Example usage:
+# Populate questions for each topic (can be run once to set up question bank)
+#populate_topic_questions("calculus")
+#populate_topic_questions("linear_algebra")
+#populate_topic_questions("statistics")
+
+# Get a shuffled list of questions for a specific topic
+#calculus_questions = get_randomized_questions("calculus")
+#print(calculus_questions)

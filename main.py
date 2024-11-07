@@ -1,5 +1,6 @@
 import sqlite3  # Import SQLite for storing user's information
 import bcrypt  # For password hashing
+import chatbot
 
 # Quiz management
 
@@ -366,10 +367,11 @@ def main():
     while True:
         print("Select an option:")
         print("1. Register and take assessment")
-        print("2. Login and take a quiz")
-        print("3. View Progress and Learning Style")
-        print("4. Exit")
-        choice = input("Enter your choice (1/2/3/4): ").strip()
+        print("2. Login and take math lessons")
+        print("3. Login and take a quiz")
+        print("4. View Progress and Learning Style")
+        print("5. Exit")
+        choice = input("Enter your choice (1/2/3/4/5): ").strip()
         print()
         
         if choice == "1":
@@ -381,6 +383,24 @@ def main():
             assessment.run_assessment()
         
         elif choice == "2":
+            # Login and take a math lesson
+            login = UserLogin(db_cursor, db_conn)
+            username = input("Enter your username: ").strip()
+            password = input("Enter your password: ").strip()
+            print()
+            if login.login(username, password):
+                exit = False
+                while (not exit):
+                    userInput = input("What would you like to learn? If you want to exit, type 'exit'.\n").strip()
+                    if userInput == "exit":
+                        print("Exited chat.")
+                        exit = True
+                        break
+                    chatbot.setup()
+                    chatbot.generateLesson(chatbot.chat_session,userInput)
+                
+        
+        elif choice == "3":
             # Login and take a quiz
             login = UserLogin(db_cursor, db_conn)
             username = input("Enter your username: ").strip()
@@ -417,8 +437,8 @@ def main():
                 print(f"\nCurrent Streak: {streak}\n")
                 learning_style = login.get_learning_style(user_id)
                 print("Learning Style:", learning_style, "\n")
-        
-        elif choice == "3":
+
+        elif choice == "4":
             # View Progress and Learning Style
             login = UserLogin(db_cursor, db_conn)
             username = input("Enter your username: ").strip()
@@ -439,12 +459,12 @@ def main():
                 learning_style = login.get_learning_style(username)
                 print("Your Learning Style:", learning_style, "\n")
         
-        elif choice == "4":
+        elif choice == "5":
             print("Goodbye!")
             break
         
         else:
-            print("Invalid choice. Please select 1, 2, 3, or 4.\n")
+            print("Invalid choice. Please select 1, 2, 3, 4, or 5\n")
 
     # Close the database connection before exiting
     db_conn.close()

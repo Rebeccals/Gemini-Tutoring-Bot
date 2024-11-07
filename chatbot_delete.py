@@ -4,7 +4,7 @@ import google.generativeai as genai
 
 # Configure the Gemini API client with the API key
 # Must have a .env file in the root directory with "GEMINI_API_KEY=API_KEY_HERE" inside to work
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.configure(api_key=os.environ("API_KEY"))
 
 # Gemnini API model configuration
 generation_config = {
@@ -252,8 +252,8 @@ chat_session = model.start_chat(
     },
   ]
 )
-
-response = chat_session.send_message("What color is the most popular apple?")
-
-print(response.text)
+def interaction (userInput):
+  response = chat_session.send_message(userInput, stream=True)
+  for chunk in response:
+    print(chunk.text)
 
