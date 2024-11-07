@@ -1,6 +1,6 @@
 # Quiz management
 
-from chatbot import calculus_questions, linear_algebra_questions
+from chatbot import all_questions
 
 def get_quiz(topic):
     if topic == "calculus":
