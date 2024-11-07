@@ -1,3 +1,6 @@
+<clipboard-copy for="blob-path">Copy</clipboard-copy>
+<div id="blob-path">src/index.js</div>
+
 # Gemini-Tutoring-Bot
 An AI Tutor that tailors it's lessons based upon the user's learning style and progress.
 
@@ -9,6 +12,13 @@ An AI Tutor that tailors it's lessons based upon the user's learning style and p
 * Python
 * Google Gemini API
 * SQLite Library
+
+## Running locally
+To run this application locally, make sure to run the following:
+
+``pip install -r requirements.txt``
+
+Then run `main.py` in your IDE or console to see it working.
 
 ## Collaborators
 
