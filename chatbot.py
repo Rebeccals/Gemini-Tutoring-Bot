@@ -23,8 +23,8 @@ all_questions = {
 generation_config = {
   "temperature": 1,
   "top_p": 0.95,
-  "top_k": 64,
-  "max_output_tokens": 8192,
+  "top_k": 92,
+  "max_output_tokens": 800,
   "response_mime_type": "text/plain",
 }
 
@@ -33,7 +33,7 @@ model = genai.GenerativeModel(
   generation_config=generation_config,
 )
 
-def generate_question(topic, difficulty="medium"):
+def generate_question(topic="calculus", difficulty="medium"):
     """
     Generates a college-level math question using Gemini AI for a specified topic and difficulty.
 
@@ -42,26 +42,59 @@ def generate_question(topic, difficulty="medium"):
         difficulty: The difficulty level (default: "medium").
 
     Returns:
-        A dictionary containing the question, answer, hint, and explanation.
+        A dictionary containing the question, hint, answer, and explanation.
     """
     # Define a prompt to get a question, answer, hint, and explanation
     prompt = f"""
     Create a college-level math question on the topic of {topic}, with {difficulty} difficulty.
     Please include:
     - A question.
-    - The correct answer.
     - A hint.
+    - The correct answer.
     - A detailed explanation.
 
     Format it as:
     Question: <question text>
-    Answer: <correct answer>
     Hint: <hint text>
+    Answer: <correct answer>
     Explanation: <detailed explanation>
+
+
+
     """
     response = model.generate_content([prompt])
-    print(response.text)
+    # print(response.text)
+    question_data = {}
 
+    try:
+        lines = response.text.strip().split('\n')
+        for line in lines:
+            if line.startswith("## Question:"):
+                question_data["question"] = line[len("## Question:"):].strip()
+            elif line.startswith("## Hint:"):
+                question_data["hint"] = line[len("## Hint:"):].strip()
+            elif line.startswith("## Answer:"):
+                question_data["answer"] = line[len("## Answer:"):].strip()
+            elif line.startswith("## Explanation:"):
+                question_data["explanation"] = line[len("## Explanation:"):].strip()
+
+        # Check if all required fields are present
+        required_fields = ["question", "hint", "answer", "explanation"]
+        missing_fields = [field for field in required_fields if field not in question_data]
+        
+        if missing_fields:
+            print(f"Warning: Missing fields in response - {missing_fields}")
+            raise ValueError(f"Failed to parse question data: {missing_fields} not found.")
+
+        if not question_data:
+            raise ValueError("Failed to parse question data from API response.")
+
+        return question_data
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        print(f"Response content: {response.text}")
+        return {"error": str(e)}
 
 def populate_topic_questions(topic, difficulty_levels=["easy", "medium", "hard"], num_questions=5):
     """
@@ -96,10 +129,10 @@ def get_explanation(question_data):
 
 # Example usage:
 # Populate questions for each topic (can be run once to set up question bank)
-populate_topic_questions("calculus")
-populate_topic_questions("linear_algebra")
-populate_topic_questions("statistics")
+#populate_topic_questions("calculus")
+#populate_topic_questions("linear_algebra")
+#populate_topic_questions("statistics")
 
 # Get a shuffled list of questions for a specific topic
-calculus_questions = get_randomized_questions("calculus")
-print(calculus_questions)
+#calculus_questions = get_randomized_questions("calculus")
+#print(calculus_questions)
