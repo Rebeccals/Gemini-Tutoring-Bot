@@ -8,6 +8,7 @@ An AI Tutor that tailors it's lessons based upon the user's learning style and p
 ## Tech Stack
 * Python
 * Google Gemini API
+* Firebase
 
 ## Collaborators
 
