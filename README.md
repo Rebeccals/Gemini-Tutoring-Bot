@@ -11,7 +11,7 @@ An AI Tutor that tailors it's lessons based upon the user's learning style and p
 * SQLite Library
 
 ## Running locally
-To run this application locally, make sure to run the following:
+To run this application locally, make sure to run the following in your local environment:
 
 ``pip install -r requirements.txt``
 
