@@ -2,7 +2,7 @@
 
 from quiz_manager import quiz
 from firebase_service import load_progress
-from learning_styles import get_learning_style
+from learning_style import get_learning_style
 
 def main():
     user_id = input("Enter your user ID: ")
