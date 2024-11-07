@@ -32,6 +32,8 @@ model = genai.GenerativeModel(
   model_name="gemini-1.5-flash",
   generation_config=generation_config,
 )
+
+#set up the chat session using history for setting limits and rules for the model
 global chat_session
 def setup():
     global chat_session
@@ -55,7 +57,7 @@ def setup():
         }
         ]
     )
-
+#basic chat response function that takes the chat_session and user prompt/input as arguments
 def generateLesson (chat_session,userInput):
     response = chat_session.send_message(userInput, stream=True)
     for chunk in response:
