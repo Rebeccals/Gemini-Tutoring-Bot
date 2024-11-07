@@ -1,6 +1,3 @@
-<clipboard-copy for="blob-path">Copy</clipboard-copy>
-<div id="blob-path">src/index.js</div>
-
 # Gemini-Tutoring-Bot
 An AI Tutor that tailors it's lessons based upon the user's learning style and progress.
 
