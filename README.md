@@ -15,7 +15,7 @@ To run this application locally, make sure to run the following in your local en
 
 ``pip install -r requirements.txt``
 
-Then run `main.py` in your IDE or console to see it working.
+Then run `python main.py` in your IDE or console to see it working.
 
 ## Collaborators
 
